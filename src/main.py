@@ -4,7 +4,7 @@ Starts processing of frames
 """
 
 
-from src.process_frames import ProcessFrames
+from dp_kafka.src.process_frames import ProcessFrames
 
 
 def main():

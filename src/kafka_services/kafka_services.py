@@ -1,11 +1,15 @@
 from kafka import KafkaProducer
-from kafka_services import config
+from dp_kafka.src.kafka_services import config
 from kafka import KafkaConsumer
 from json import loads
 import json
 
 
 def initialize_producer():
+    """
+    Initialize KafkaProducer, this producer is asynchronous by default
+    :return: KafpaProducer instance
+    """
     producer = KafkaProducer(bootstrap_servers=[config.KAFKA_SERVER],
                              value_serializer=lambda v: json.dumps(v).encode('utf-8'),
                              api_version=(0, 10, 1))

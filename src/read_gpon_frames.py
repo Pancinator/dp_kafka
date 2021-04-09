@@ -6,7 +6,7 @@ import ast
 
 # read file
 #path = 'D:\DataTensor\*.txt'
-path = r"C:\Users\Pancinator\Desktop\Python\dp_kafka\gpon_frames\Tensor1.txt"
+path = r"/Users/matejpancak/PycharmProjects/new_project_test/Tensor1.txt"
 files = glob.glob(path)
 respond = {}
 for file in files:

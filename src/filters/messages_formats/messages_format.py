@@ -8,11 +8,9 @@ from datetime import datetime
 
 class MessagesFormat:
     onu_id: int
-    frame_id: int
     date: datetime
 
-    def __init__(self, onu_id, frame_id):
-        self.frame_id = frame_id
+    def __init__(self, onu_id):
         self.onu_id = onu_id
 
     def date_converter(o):
