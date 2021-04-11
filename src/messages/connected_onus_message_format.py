@@ -2,7 +2,7 @@
 Class specifying shape of message publishing to topic kafka broker ConnectedOnusActive
 """
 
-from dp_kafka.src.filters.messages_formats.messages_format import MessagesFormat
+from dp_kafka.src.messages.messages_format import MessagesFormat
 from datetime import datetime
 
 

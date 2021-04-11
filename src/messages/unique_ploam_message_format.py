@@ -2,9 +2,8 @@
 Class specifying shape of message publishing to topic kafka broker UniquePloamMessages
 """
 
-import json
-from datetime import datetime
-from dp_kafka.src.filters.messages_formats.messages_format import MessagesFormat
+from dp_kafka.src.messages.messages_format import MessagesFormat
+from dp_kafka.src.messages.messages_types import get_message_type_by_id
 
 
 class UniquePloamMessagesFormat(MessagesFormat):
@@ -22,7 +21,7 @@ class UniquePloamMessagesFormat(MessagesFormat):
         self.counter = counter
 
     def get_ploam_message_name(self):
-        return self.get_ploam_message_type(self.ploam_message_id)
+        return get_message_type_by_id(self.ploam_message_id)
 
 
     # doplnit metody pre ziskanie ploam_message_name a ploam_message_id_bin

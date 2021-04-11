@@ -1,6 +1,5 @@
-from dp_kafka.src.filters.messages_formats.unique_ploam_message_format import UniquePloamMessagesFormat
+from dp_kafka.src.messages.unique_ploam_message_format import UniquePloamMessagesFormat
 from dp_kafka.src.kafka_services.kafka_services import initialize_producer
-from dp_kafka.src.kafka_services.config import PLOAM_EMPTY_MESSAGE
 
 
 class FilterUniquePloamMessages:
@@ -24,7 +23,7 @@ class FilterUniquePloamMessages:
     def filter_unique_ploam_messages(self, message):
         """
         Method for frame processing
-        :param message:
+        :param message: GPON frame in JSON format
         :return: Updating UniquePloamMessages topic in Kafka
         """
         ploam_message_onu_id = message['PLOAMdownstream']['ONUid']
