@@ -16,9 +16,13 @@ Repository structure:
   (source files for GPON frames filter)
   - filters
     (scripts for filtering needed informations from consumed messages)
-    - messgae_formats 
+   - messages 
       (Classes of produced messages)
       - unique_ploam_message_format.py
+      - connected_onus_message_format.py
+      - filter_ploam_messages_by_type_format.py
+      - messages_format.py
+      - messages_types.py
     - filter_unique_onus.py
     - filter_unique_ploam_messages.py
     
