@@ -21,14 +21,16 @@ producer = KafkaProducer(bootstrap_servers=['localhost:9092'],
 
 # Iterate through all files from folder
 for file in files:
+    print(file)
     with open(file, 'r') as f:
         response = json.dumps(f.read())
         response = ast.literal_eval(json.loads(response))
 
         # Iterate through JSON objects (frames)
         for i in range(1, len(response) - 1):
-            data = {i: response[i]}
+            data = response[i]
             producer.send('GPONFrames', value=data)
+            print(data)
 
 
 

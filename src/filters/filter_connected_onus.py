@@ -38,7 +38,6 @@ class FilterConnectedOnus:
         :return: produce information message to Kafka topic ConnectedOnus
         """
 
-        frame_id: int = list(message.keys())[0]
         message_onu_id: int = message['PLOAMdownstream']['ONUid']
         message_ploam_message_id: int = message['PLOAMdownstream']['MessageID']
 
@@ -57,7 +56,7 @@ class FilterConnectedOnus:
             self.buffer['active'].append(data)
 
             # Update ConnectedOnus topic with buffered data
-            # self.producer.send('ConnectedOnus', value=self.buffer)
+            self.producer.send('ConnectedOnus', value=self.buffer)
             print('CONNECTED ONUS: ', self.buffer)
 
         elif message_onu_id in self.unique_connected_onus_ids and message_ploam_message_id == PLOAM_DEACTIVATE_MESSAGE:
@@ -73,8 +72,8 @@ class FilterConnectedOnus:
             # update helper list
             self.unique_deactivated_onus_ids.append(message_onu_id)
 
-            # self.producer.send('ConnectedOnus', value=self.buffer)
-            # self.producer.send('ConnectedOnusDeactivated', value=json.dumps(self.unique_deactivated_onus_ids))
+            self.producer.send('ConnectedOnus', value=self.buffer)
+            self.producer.send('ConnectedOnusDeactivated', value=json.dumps(self.unique_deactivated_onus_ids))
             print('ONU WITH ID WAS REMOVED: ', message_onu_id, 'BUFFER STATUS: ', self.buffer)
 
 

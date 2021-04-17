@@ -38,7 +38,7 @@ class FilterPloamMessagesByType:
         if ploam_message_id != 11:
             message = FilterMessagesByTypeFormat(ploam_message_id, ploam_message_onu_id, ploam_message_data)
             self.buffer[ploam_message_id].append(message.format_message())
-            # self.producer.send(f'PloamType{ploam_message_id}', value=self.buffer[ploam_message_id])
+            self.producer.send(f'PloamType{ploam_message_id}', value=self.buffer[ploam_message_id])
             print('TOPIC BY TYPE: ', self.buffer)
 
     def initialize_buffer(self):

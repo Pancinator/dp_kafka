@@ -24,40 +24,19 @@ class ProcessFrames:
 
     def __init__(self):
         self.consumer = initialize_consumer()
-        self.onus_filter = FilterConnectedOnus()
         self.unique_ploam_messages_filter = FilterUniquePloamMessages()
         self.connected_onus_filter = FilterConnectedOnus()
         self.ploam_messages_type_filter = FilterPloamMessagesByType()
         self.filter_ploam_messages_by_onu_id = FilterPloamMessagesByOnuId()
 
     def process(self):
-        path = r"/Users/matejpancak/PycharmProjects/new_project_test/Tensor1.txt"
-        files = glob.glob(path)
-        respond = {}
-        for file in files:
-            with open(file, 'r') as f:
-                response = json.dumps(f.read())
-                response = ast.literal_eval(json.loads(response))
-                print(datetime.now().__str__())
-                for i in range(1, len(response)):
-                    idct = {}
-                    idct[i] = response[i]
-                    # Filters
-                    # self.unique_ploam_messages_filter.filter_unique_ploam_messages(idct[i])
-                    self.connected_onus_filter.filter_connected_onus(idct[i])
-                    self.ploam_messages_type_filter.filter_ploam_messages_by_type(idct[i])
-                    self.filter_ploam_messages_by_onu_id.filter_ploam_messages_by_onu_id(idct[i])
+        for message in self.consumer:
+            # Filter messages in consumer
+            self.connected_onus_filter.filter_connected_onus(message.value)
+            self.ploam_messages_type_filter.filter_ploam_messages_by_type(message.value)
+            self.filter_ploam_messages_by_onu_id.filter_ploam_messages_by_onu_id(message.value)
+            self.unique_ploam_messages_filter.filter_unique_ploam_messages(message.value)
 
-                print(datetime.now().__str__())
-
-
-    """             
-    
-              for message in self.consumer:
-        # Filter messages in consumer
-        # self.onus_filter.filter_connected_onus(message)
-    self.ploam_messages_filter.filter_unique_ploam_messages(message)
-    """
 
 
 

@@ -46,7 +46,7 @@ class FilterUniquePloamMessages:
             self.update_used_messages_count(ploam_message_onu_id, ploam_message_id)
 
             # Update UniquePloamMessages topic
-            # self.producer.send('UniquePloamMessages', value=self.buffer)
+            self.producer.send('UniquePloamMessages', value=self.buffer)
             print('PLOAM MESSAGES: ', self.buffer)
         else:
             # Check if message type is present for detected ONU, if it is, increase counter, if not create new record
@@ -56,7 +56,7 @@ class FilterUniquePloamMessages:
             self.update_buffer(ploam_message_onu_id, ploam_message_id)
 
             # Update UniquePloamMessages topic
-            # self.producer.send('UniquePloamMessages', value=self.buffer)
+            self.producer.send('UniquePloamMessages', value=self.buffer)
 
     def get_ploam_message_type_count(self, ploam_message_onu_id, ploam_message_id):
         return self.used_ploam_messages_dict[ploam_message_onu_id][ploam_message_id]

@@ -4,10 +4,10 @@ Example of kafka consumer subscribing topic ConnectedOnus -> will be used in web
 
 
 from kafka import KafkaConsumer
-from src.kafka_services import config
+from dp_kafka.src.kafka_services import config
 from json import loads
 
-consumer = KafkaConsumer('ConnectedOnus',
+consumer = KafkaConsumer('UniquePloamMessages',
                          bootstrap_servers=[config.KAFKA_SERVER],
                          auto_offset_reset='earliest',
                          enable_auto_commit=True,
@@ -16,4 +16,4 @@ consumer = KafkaConsumer('ConnectedOnus',
                          api_version=(0, 10, 1))
 
 for message in consumer:
-    print(message)
+    print(message.value)
