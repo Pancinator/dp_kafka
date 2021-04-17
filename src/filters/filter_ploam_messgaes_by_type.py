@@ -14,16 +14,15 @@ class FilterPloamMessagesByType:
     """
 
     buffer: dict
-    produce: initialize_producer
 
     def __init__(self):
-        self.producer = initialize_producer()
         self.buffer = {}
         self.initialize_buffer()
 
-    def filter_ploam_messages_by_type(self, message):
+    def filter_ploam_messages_by_type(self, message, producer):
         """
         Method for frame processing
+        :param producer: producer instance
         :param message: GPON frame in JSON format
         :return: Push message with additional information to separate topics by type
         """
@@ -38,8 +37,8 @@ class FilterPloamMessagesByType:
         if ploam_message_id != 11:
             message = FilterMessagesByTypeFormat(ploam_message_id, ploam_message_onu_id, ploam_message_data)
             self.buffer[ploam_message_id].append(message.format_message())
-            self.producer.send(f'PloamType{ploam_message_id}', value=self.buffer[ploam_message_id])
             print('TOPIC BY TYPE: ', self.buffer)
+            producer.send(f'PloamType{ploam_message_id}', value=self.buffer[ploam_message_id])
 
     def initialize_buffer(self):
         for key in messages_types_dict.keys():

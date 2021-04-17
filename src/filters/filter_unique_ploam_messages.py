@@ -1,5 +1,6 @@
 from dp_kafka.src.messages.unique_ploam_message_format import UniquePloamMessagesFormat
 from dp_kafka.src.kafka_services.kafka_services import initialize_producer
+from kafka import KafkaProducer
 
 
 class FilterUniquePloamMessages:
@@ -15,14 +16,14 @@ class FilterUniquePloamMessages:
     buffer: dict
 
     def __init__(self):
-        self.producer = initialize_producer()
         self.used_ploam_messages_dict = {}
         self.buffer = {}
 
     # Method for filtering
-    def filter_unique_ploam_messages(self, message):
+    def filter_unique_ploam_messages(self, message, producer: KafkaProducer):
         """
         Method for frame processing
+        :param producer: producer instance
         :param message: GPON frame in JSON format
         :return: Updating UniquePloamMessages topic in Kafka
         """
@@ -46,7 +47,7 @@ class FilterUniquePloamMessages:
             self.update_used_messages_count(ploam_message_onu_id, ploam_message_id)
 
             # Update UniquePloamMessages topic
-            self.producer.send('UniquePloamMessages', value=self.buffer)
+            producer.send('UniquePloamMessages', value=self.buffer)
             print('PLOAM MESSAGES: ', self.buffer)
         else:
             # Check if message type is present for detected ONU, if it is, increase counter, if not create new record
@@ -56,7 +57,7 @@ class FilterUniquePloamMessages:
             self.update_buffer(ploam_message_onu_id, ploam_message_id)
 
             # Update UniquePloamMessages topic
-            self.producer.send('UniquePloamMessages', value=self.buffer)
+            producer.send('UniquePloamMessages', value=self.buffer)
 
     def get_ploam_message_type_count(self, ploam_message_onu_id, ploam_message_id):
         return self.used_ploam_messages_dict[ploam_message_onu_id][ploam_message_id]

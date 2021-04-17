@@ -1,6 +1,6 @@
 from dp_kafka.src.kafka_services.kafka_services import initialize_producer
 from dp_kafka.src.messages.filter_ploam_messages_by_onu_id_format import FilterMessagesByOnuIdFormat
-
+from kafka import KafkaProducer
 
 class FilterPloamMessagesByOnuId:
     """
@@ -12,15 +12,14 @@ class FilterPloamMessagesByOnuId:
     """
 
     buffer: dict
-    produce: initialize_producer
 
     def __init__(self):
-        self.producer = initialize_producer()
         self.buffer = {}
 
-    def filter_ploam_messages_by_onu_id(self, message):
+    def filter_ploam_messages_by_onu_id(self, message, producer: KafkaProducer):
         """
             Method for frame processing
+            :param producer: producer instance
             :param message: GPON frame in JSON format
             :return: Push message with additional information to separate topics by ONU ID
         """
@@ -35,7 +34,7 @@ class FilterPloamMessagesByOnuId:
         if ploam_message_id != 11:
             message = FilterMessagesByOnuIdFormat(ploam_message_id, ploam_message_onu_id, ploam_message_data)
             self.buffer[ploam_message_onu_id].append(message.format_message())
-            self.producer.send(f'PloamOnuId{ploam_message_onu_id}', value=self.buffer[ploam_message_onu_id])
+            producer.send(f'PloamOnuId{ploam_message_onu_id}', value=self.buffer[ploam_message_onu_id])
             print('TOPIC BY ONU ID: ', self.buffer)
 
 
