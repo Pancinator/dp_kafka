@@ -1,5 +1,5 @@
-from dp_kafka.src.messages.unique_ploam_message_format import UniquePloamMessagesFormat
-from dp_kafka.src.kafka_services.kafka_services import initialize_producer
+from kafka_services.kafka_services import initialize_producer
+from messages.unique_ploam_message_format import UniquePloamMessagesFormat
 
 
 class FilterUniquePloamMessages:
@@ -84,4 +84,3 @@ class FilterUniquePloamMessages:
             # Get message count
             count = self.get_ploam_message_type_count(ploam_message_onu_id, ploam_message_id)
             self.buffer[ploam_message_onu_id][ploam_message_id]['counter'] = count
-

@@ -1,0 +1,10 @@
+# Build and run Python application for GPON Frames processing
+version: "3.4"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile_app
+    image: app_image
+    network_mode: host
+    

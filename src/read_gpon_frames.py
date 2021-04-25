@@ -1,11 +1,10 @@
 # read JSON file from Parser D:\DataTensor\*.txt
+import ast
 import glob
 import json
-import ast
-
 
 # read file
-#path = 'D:\DataTensor\*.txt'
+# path = 'D:\DataTensor\*.txt'
 path = r"/Users/matejpancak/PycharmProjects/new_project_test/Tensor1.txt"
 files = glob.glob(path)
 respond = {}
@@ -20,17 +19,17 @@ for file in files:
 
 print(respond)
 # example of imports to pandas DataFrame
-#dataset = pandas.DataFrame.from_dict(respond, orient='index',
+# dataset = pandas.DataFrame.from_dict(respond, orient='index',
 #                                    columns=['PLOAMdownstream', 'BIP', 'Psync', 'Plend', 'Identification', 'Bwmap'])
 # example of table view
-#from tabulate import tabulate
-#print(tabulate(dataset, headers='keys', tablefmt='psql'))
+# from tabulate import tabulate
+# print(tabulate(dataset, headers='keys', tablefmt='psql'))
 
 # example of reading values from pandas
-#bips = dataset['BIP'].value_counts(dropna=False)
-#ploam_message = dataset['PLOAMdownstream'][1]['MessageID']
+# bips = dataset['BIP'].value_counts(dropna=False)
+# ploam_message = dataset['PLOAMdownstream'][1]['MessageID']
 
 # example of converting pandas to json
-#pandaBipJson = pandas.DataFrame.to_json(bips)
-#print(pandaBipJson)
-#print(ploam_message)
+# pandaBipJson = pandas.DataFrame.to_json(bips)
+# print(pandaBipJson)
+# print(ploam_message)
