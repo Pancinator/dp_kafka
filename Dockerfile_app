@@ -1,7 +1,7 @@
 #Dockerfile for GPON Frames processing python application
 FROM python:3.9
-WORKDIR /dp_kafka
-COPY /dp_kafka .
+WORKDIR /dp_kafka/src
+COPY /src .
 RUN pip install kafka-python
 
-
+CMD["python", "main.py"]
