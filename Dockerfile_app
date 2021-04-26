@@ -4,4 +4,4 @@ WORKDIR /dp_kafka/src
 COPY /src .
 RUN pip install kafka-python
 
-CMD["python", "main.py"]
+CMD [ "python", "main.py" ]
