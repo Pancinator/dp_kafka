@@ -1,6 +1,6 @@
 # dp-kafka
 
-Source files for diploma thesis of Matej Pancák
+### Source files for diploma thesis of Matej Pancák
 
 Repository structure:
 
@@ -36,3 +36,13 @@ Repository structure:
     - process_frames.py (process raw data from kafka)
 
     - read_gpon_frames.py (example of processing frames from .txt files)
+
+### Inštalácia
+
+1. Mať nainštalovaný docker a docker-compose
+2. Naklonovať repozitár
+3. Mať spustený Kafka cluster dostupný z https://github.com/Pancinator/dp_dockerize_kafka
+4. V terminálovom okne spustenom v naklonovanom repozitáry spustiť príkaz docker-compose up
+5. Ak sa v Kafke nachádzajú správy na spracovanie, proces filtrácie sa začne a v terminálovom okne sa obiavia konzolové výstupy
+
+
