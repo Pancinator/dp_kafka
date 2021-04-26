@@ -19,4 +19,3 @@ class MessagesFormat:
 
     def format_message(self):
         return json.dumps(self.__dict__, default=self.date_converter)
-

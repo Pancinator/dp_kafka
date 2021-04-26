@@ -2,12 +2,11 @@
 Start producing frames from text files to GPONFrames topic
 """
 
-from time import sleep
-from json import dumps
-from kafka import KafkaProducer
+import ast
 import glob
 import json
-import ast
+
+from kafka import KafkaProducer
 
 # Path to stored Dataset
 path = r"/home/pancinator/Documents/DP/gpon_frames"
@@ -31,7 +30,3 @@ for file in files:
             data = response[i]
             producer.send('GPONFrames', value=data)
             print(data)
-
-
-
-

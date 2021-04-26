@@ -9,9 +9,9 @@ Output:
     ConnectedOnusActive and ConnectedOnusDeactivated topic.
 """
 
-from dp_kafka.src.kafka_services.kafka_services import initialize_producer
-from dp_kafka.src.messages.connected_onus_message_format import ConnectedOnusMessageFormat
-from dp_kafka.src.kafka_services.config import PLOAM_DEACTIVATE_MESSAGE
+from kafka_services.config import PLOAM_DEACTIVATE_MESSAGE
+from kafka_services.kafka_services import initialize_producer
+from messages.connected_onus_message_format import ConnectedOnusMessageFormat
 
 
 class FilterConnectedOnus:
@@ -62,7 +62,8 @@ class FilterConnectedOnus:
         elif message_onu_id in self.unique_connected_onus_ids and message_ploam_message_id == PLOAM_DEACTIVATE_MESSAGE:
             # remove ONU from buffer and push updated list to Kafka
             self.unique_connected_onus_ids.remove(message_onu_id)
-            self.buffer['active'] = [message if message['onu_id'] != message_onu_id else "" for message in self.buffer['active']]
+            self.buffer['active'] = [message if message['onu_id'] != message_onu_id else "" for message in
+                                     self.buffer['active']]
 
             message: ConnectedOnusMessageFormat = ConnectedOnusMessageFormat(message_onu_id)
             data: dict = message.format_message()
@@ -75,6 +76,3 @@ class FilterConnectedOnus:
             self.producer.send('ConnectedOnus', value=self.buffer)
             self.producer.send('ConnectedOnusDeactivated', value=json.dumps(self.unique_deactivated_onus_ids))
             print('ONU WITH ID WAS REMOVED: ', message_onu_id, 'BUFFER STATUS: ', self.buffer)
-
-
-

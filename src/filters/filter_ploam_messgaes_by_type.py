@@ -1,7 +1,6 @@
-from dp_kafka.src.messages.unique_ploam_message_format import UniquePloamMessagesFormat
-from dp_kafka.src.kafka_services.kafka_services import initialize_producer
-from dp_kafka.src.messages.messages_types import messages_types_dict, get_message_type_by_id
-from dp_kafka.src.messages.filter_ploam_messages_by_type_format import FilterMessagesByTypeFormat
+from kafka_services.kafka_services import initialize_producer
+from messages.filter_ploam_messages_by_type_format import FilterMessagesByTypeFormat
+from messages.messages_types import messages_types_dict
 
 
 class FilterPloamMessagesByType:
@@ -44,7 +43,3 @@ class FilterPloamMessagesByType:
     def initialize_buffer(self):
         for key in messages_types_dict.keys():
             self.buffer[messages_types_dict[key]] = []
-
-
-
-

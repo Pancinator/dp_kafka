@@ -3,15 +3,11 @@ This is the base consumer which consumes raw data from GPONFrames topic.
 Messages in this consumer are then filtered and manipulated by filter instances
 """
 
-from dp_kafka.src.filters.filter_connected_onus import FilterConnectedOnus
-from dp_kafka.src.filters.filter_unique_ploam_messages import FilterUniquePloamMessages
-from dp_kafka.src.filters.filter_ploam_messgaes_by_type import FilterPloamMessagesByType
-from dp_kafka.src.filters.filter_ploam_messages_by_onuid import FilterPloamMessagesByOnuId
-from dp_kafka.src.kafka_services.kafka_services import initialize_consumer
-from datetime import datetime
-import glob
-import json
-import ast
+from filters.filter_connected_onus import FilterConnectedOnus
+from filters.filter_ploam_messages_by_onuid import FilterPloamMessagesByOnuId
+from filters.filter_ploam_messgaes_by_type import FilterPloamMessagesByType
+from filters.filter_unique_ploam_messages import FilterUniquePloamMessages
+from kafka_services.kafka_services import initialize_consumer
 
 
 class ProcessFrames:
@@ -36,10 +32,3 @@ class ProcessFrames:
             self.ploam_messages_type_filter.filter_ploam_messages_by_type(message.value)
             self.filter_ploam_messages_by_onu_id.filter_ploam_messages_by_onu_id(message.value)
             self.unique_ploam_messages_filter.filter_unique_ploam_messages(message.value)
-
-
-
-
-
-
-

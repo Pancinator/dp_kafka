@@ -2,12 +2,13 @@
 Example of kafka consumer subscribing topic ConnectedOnus -> will be used in web app backend
 """
 
-
-from kafka import KafkaConsumer
-from dp_kafka.src.kafka_services import config
 from json import loads
 
-consumer = KafkaConsumer('UniquePloamMessages',
+from kafka import KafkaConsumer
+
+from dp_kafka.src.kafka_services import config
+
+consumer = KafkaConsumer('GPONFrames',
                          bootstrap_servers=[config.KAFKA_SERVER],
                          auto_offset_reset='earliest',
                          enable_auto_commit=True,

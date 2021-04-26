@@ -1,6 +1,7 @@
+from json import loads
+
 from kafka import KafkaConsumer
 from src.kafka_services import config
-from json import loads
 
 #  Kafka consumer subscribing topic UniquePloamMessages -> will be used in web app backend of my colleague Pavel
 consumer = KafkaConsumer('UniquePloamMessages',

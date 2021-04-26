@@ -1,5 +1,5 @@
-from dp_kafka.src.kafka_services.kafka_services import initialize_producer
-from dp_kafka.src.messages.filter_ploam_messages_by_onu_id_format import FilterMessagesByOnuIdFormat
+from kafka_services.kafka_services import initialize_producer
+from messages.filter_ploam_messages_by_onu_id_format import FilterMessagesByOnuIdFormat
 
 
 class FilterPloamMessagesByOnuId:
@@ -37,8 +37,3 @@ class FilterPloamMessagesByOnuId:
             self.buffer[ploam_message_onu_id].append(message.format_message())
             self.producer.send(f'PloamOnuId{ploam_message_onu_id}', value=self.buffer[ploam_message_onu_id])
             print('TOPIC BY ONU ID: ', self.buffer)
-
-
-
-
-
