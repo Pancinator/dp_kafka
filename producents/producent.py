@@ -42,24 +42,13 @@ def process(file):
         partition = 0
         for i in range(1, len(response) - 1):
             data = response[i]
-            producer.send('GPONFrames', value=data, partition=partition)
-            print(str(data) + 'parititon: ' + str(partition))
-
-            if partition == 0:
-                partition = 1
-            elif partition == 1:
-                partition = 0
+            producer.send('GPONFrames', value=data)
+            print(str(data))
 
 
 # Iterate through all files from folder
 for file in files:
-    print(file)
-    thread = threading.Thread(target=process, args=[file])
-    thread.start()
-    threds.append(thread)
-
-for thread in threds:
-    thread.join()
+    process(file)
 
 
 
