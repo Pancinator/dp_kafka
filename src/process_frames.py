@@ -37,7 +37,6 @@ class ProcessFrames:
         print('creating consumer 1')
         self.consumer = initialize_consumer()
         for message in self.consumer:
-            print('thread 1')
             # Filter messages in consumer
             # print('start time' + str(datetime.now()))
             self.connected_onus_filter.filter_connected_onus(message.value, self.producer)
@@ -50,7 +49,6 @@ class ProcessFrames:
         print('creating consumer 2')
         self.consumer2 = initialize_consumer()
         for message in self.consumer2:
-            print('thread 2')
             self.connected_onus_filter.filter_connected_onus(message.value, self.producer)
             self.ploam_messages_type_filter.filter_ploam_messages_by_type(message.value, self.producer)
             self.filter_ploam_messages_by_onu_id.filter_ploam_messages_by_onu_id(message.value, self.producer)
