@@ -1,6 +1,8 @@
 from dp_kafka.src.kafka_services.kafka_services import initialize_producer
 from dp_kafka.src.messages.filter_ploam_messages_by_onu_id_format import FilterMessagesByOnuIdFormat
 from kafka import KafkaProducer
+import json
+
 
 class FilterPloamMessagesByOnuId:
     """
@@ -33,9 +35,8 @@ class FilterPloamMessagesByOnuId:
 
         if ploam_message_id != 11:
             message = FilterMessagesByOnuIdFormat(ploam_message_id, ploam_message_onu_id, ploam_message_data)
-            self.buffer[ploam_message_onu_id].append(message.format_message())
-            producer.send(f'PloamOnuId{ploam_message_onu_id}', value=self.buffer[ploam_message_onu_id])
-            print('TOPIC BY ONU ID: ', self.buffer)
+            self.buffer[ploam_message_onu_id].append(message.__dict__)
+            producer.send(f'PloamOnuId{ploam_message_onu_id}', value=json.dumps(self.buffer[ploam_message_onu_id]))
 
 
 

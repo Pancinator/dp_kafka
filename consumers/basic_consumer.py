@@ -8,10 +8,10 @@ from dp_kafka.src.kafka_services import config
 from json import loads
 
 consumer = KafkaConsumer('PloamOnuId1',
-                         bootstrap_servers=[config.KAFKA_SERVER],
+                         bootstrap_servers=['localhost:9092'],
                          auto_offset_reset='earliest',
                          enable_auto_commit=True,
-                         group_id='my-group',
+                         group_id='my-group2',
                          value_deserializer=lambda data: loads(data.decode('utf-8')),
                          api_version=(0, 10, 1))
 

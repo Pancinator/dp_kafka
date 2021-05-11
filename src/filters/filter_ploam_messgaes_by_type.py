@@ -2,7 +2,7 @@ from dp_kafka.src.messages.unique_ploam_message_format import UniquePloamMessage
 from dp_kafka.src.kafka_services.kafka_services import initialize_producer
 from dp_kafka.src.messages.messages_types import messages_types_dict, get_message_type_by_id
 from dp_kafka.src.messages.filter_ploam_messages_by_type_format import FilterMessagesByTypeFormat
-
+import json
 
 class FilterPloamMessagesByType:
     """
@@ -36,9 +36,9 @@ class FilterPloamMessagesByType:
 
         if ploam_message_id != 11:
             message = FilterMessagesByTypeFormat(ploam_message_id, ploam_message_onu_id, ploam_message_data)
-            self.buffer[ploam_message_id].append(message.format_message())
-            print('TOPIC BY TYPE: ', self.buffer)
-            producer.send(f'PloamType{ploam_message_id}', value=self.buffer[ploam_message_id])
+            self.buffer[ploam_message_id].append(message.__dict__)
+            print('BUFFER JSON : ', self.buffer[ploam_message_id])
+            producer.send(f'PloamType{ploam_message_id}', value=json.dumps(self.buffer[ploam_message_id]))
 
     def initialize_buffer(self):
         for key in messages_types_dict.keys():
