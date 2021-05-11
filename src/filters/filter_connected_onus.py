@@ -9,10 +9,11 @@ Output:
     ConnectedOnusActive and ConnectedOnusDeactivated topic.
 """
 
-from kafka_services.config import PLOAM_DEACTIVATE_MESSAGE
-from kafka_services.kafka_services import initialize_producer
-from messages.connected_onus_message_format import ConnectedOnusMessageFormat
+from dp_kafka.src.kafka_services.kafka_services import initialize_producer
+from dp_kafka.src.messages.connected_onus_message_format import ConnectedOnusMessageFormat
+from dp_kafka.src.kafka_services.config import PLOAM_DEACTIVATE_MESSAGE
 import json
+from datetime import datetime
 
 
 class FilterConnectedOnus:
@@ -27,12 +28,12 @@ class FilterConnectedOnus:
     producer: initialize_producer
 
     def __init__(self):
-        self.producer = initialize_producer()
+        # self.producer = initialize_producer()
         self.buffer = {'active': [], 'deactivated': []}
         self.unique_connected_onus_ids = []
         self.unique_deactivated_onus_ids = []
 
-    def filter_connected_onus(self, message):
+    def filter_connected_onus(self, message, producer):
         """
         Method for filtering connected ONU's, divide ONU's to active and deactivated lists
         :param message: GPON frame consumed from Kafka
@@ -57,14 +58,15 @@ class FilterConnectedOnus:
             self.buffer['active'].append(data)
 
             # Update ConnectedOnus topic with buffered data
-            self.producer.send('ConnectedOnus', value=self.buffer)
-            print('CONNECTED ONUS: ', self.buffer)
+            print('sending: ' + str(datetime.now()))
+            producer.send('ConnectedOnus', value=self.buffer)
+            print('sended: ' + str(datetime.now()))
+            return print('sended: CONNECTED ONUS: ', self.buffer)
 
         elif message_onu_id in self.unique_connected_onus_ids and message_ploam_message_id == PLOAM_DEACTIVATE_MESSAGE:
             # remove ONU from buffer and push updated list to Kafka
             self.unique_connected_onus_ids.remove(message_onu_id)
-            self.buffer['active'] = [message if message['onu_id'] != message_onu_id else "" for message in
-                                     self.buffer['active']]
+            self.buffer['active'] = [message if message['onu_id'] != message_onu_id else "" for message in self.buffer['active']]
 
             message: ConnectedOnusMessageFormat = ConnectedOnusMessageFormat(message_onu_id)
             data: dict = message.format_message()
@@ -74,6 +76,9 @@ class FilterConnectedOnus:
             # update helper list
             self.unique_deactivated_onus_ids.append(message_onu_id)
 
-            self.producer.send('ConnectedOnus', value=self.buffer)
-            self.producer.send('ConnectedOnusDeactivated', value=json.dumps(self.unique_deactivated_onus_ids))
-            print('ONU WITH ID WAS REMOVED: ', message_onu_id, 'BUFFER STATUS: ', self.buffer)
+            producer.send('ConnectedOnus', value=self.buffer)
+            producer.send('ConnectedOnusDeactivated', value=json.dumps(self.unique_deactivated_onus_ids))
+            return print('ONU WITH ID WAS REMOVED: ', message_onu_id, 'BUFFER STATUS: ', self.buffer)
+
+
+

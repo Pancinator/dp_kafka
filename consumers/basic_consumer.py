@@ -7,7 +7,7 @@ from kafka import KafkaConsumer
 from dp_kafka.src.kafka_services import config
 from json import loads
 
-consumer = KafkaConsumer('ConnectedOnus',
+consumer = KafkaConsumer('PloamOnuId1',
                          bootstrap_servers=[config.KAFKA_SERVER],
                          auto_offset_reset='earliest',
                          enable_auto_commit=True,
