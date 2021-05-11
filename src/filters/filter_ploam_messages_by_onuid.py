@@ -34,6 +34,6 @@ class FilterPloamMessagesByOnuId:
 
         if ploam_message_id != 11:
             message = FilterMessagesByOnuIdFormat(ploam_message_id, ploam_message_onu_id, ploam_message_data)
-            self.buffer[ploam_message_onu_id].append(message.format_message())
+            self.buffer[ploam_message_onu_id].append(message)
             self.producer.send(f'PloamOnuId{ploam_message_onu_id}', value=self.buffer[ploam_message_onu_id])
-            print('TOPIC BY ONU ID: ', self.buffer)
+            # print('TOPIC BY ONU ID: ', self.buffer)

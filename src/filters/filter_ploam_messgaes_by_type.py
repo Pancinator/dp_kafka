@@ -1,6 +1,7 @@
 from kafka_services.kafka_services import initialize_producer
 from messages.filter_ploam_messages_by_type_format import FilterMessagesByTypeFormat
 from messages.messages_types import messages_types_dict
+import json
 
 
 class FilterPloamMessagesByType:
@@ -36,9 +37,9 @@ class FilterPloamMessagesByType:
 
         if ploam_message_id != 11:
             message = FilterMessagesByTypeFormat(ploam_message_id, ploam_message_onu_id, ploam_message_data)
-            self.buffer[ploam_message_id].append(message.format_message())
+            self.buffer[ploam_message_id].append(message)
             self.producer.send(f'PloamType{ploam_message_id}', value=self.buffer[ploam_message_id])
-            print('TOPIC BY TYPE: ', self.buffer)
+            # print('TOPIC BY TYPE: ', self.buffer)
 
     def initialize_buffer(self):
         for key in messages_types_dict.keys():

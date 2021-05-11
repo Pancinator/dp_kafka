@@ -12,6 +12,7 @@ Output:
 from kafka_services.config import PLOAM_DEACTIVATE_MESSAGE
 from kafka_services.kafka_services import initialize_producer
 from messages.connected_onus_message_format import ConnectedOnusMessageFormat
+import json
 
 
 class FilterConnectedOnus:
