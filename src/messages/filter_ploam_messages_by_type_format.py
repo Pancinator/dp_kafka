@@ -2,12 +2,11 @@
 Class specifying shape of message publishing to topic kafka broker PloamTypeX
 """
 
-from dp_kafka.src.messages.messages_format import MessagesFormat
-from dp_kafka.src.messages.messages_types import get_message_type_by_id
+from messages.messages_format import MessagesFormat
+from messages.messages_types import get_message_type_by_id
 
 
 class FilterMessagesByTypeFormat(MessagesFormat):
-
     ploam_message_id: int
     ploam_message_name: str
     ploam_message_id_bin: str

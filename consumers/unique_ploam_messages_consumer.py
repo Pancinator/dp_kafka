@@ -1,10 +1,11 @@
-from kafka import KafkaConsumer
-from src.kafka_services import config
 from json import loads
+
+from kafka import KafkaConsumer
+
 
 #  Kafka consumer subscribing topic UniquePloamMessages -> will be used in web app backend of my colleague Pavel
 consumer = KafkaConsumer('UniquePloamMessages',
-                         bootstrap_servers=[config.KAFKA_SERVER],
+                         bootstrap_servers=['localhost:9092'],
                          auto_offset_reset='earliest',
                          enable_auto_commit=True,
                          group_id='my-group',

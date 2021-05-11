@@ -1,8 +1,10 @@
-from kafka import KafkaProducer
-from dp_kafka.src.kafka_services import config
-from kafka import KafkaConsumer
-from json import loads
 import json
+from json import loads
+
+from kafka import KafkaConsumer
+from kafka import KafkaProducer
+
+from kafka_services import config
 
 
 def initialize_producer():

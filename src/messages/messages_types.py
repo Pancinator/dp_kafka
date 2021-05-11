@@ -1,8 +1,6 @@
-
 """
     Static class (not really a class) with ploam messages type dict and related methods.
 """
-
 
 messages_types_dict = {
     "PLOAM_DEACTIVATE_MESSAGE": 5,
