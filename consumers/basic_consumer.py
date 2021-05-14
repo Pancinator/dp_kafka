@@ -3,9 +3,9 @@ Example of kafka consumer subscribing topic ConnectedOnus -> will be used in web
 """
 
 from kafka import KafkaConsumer
-from kafka_services import config
+from dp_kafka.src.kafka_services import config
 from json import loads
-from kafka_services import config
+from dp_kafka.src.kafka_services import config
 
 
 class BasicConsumer:

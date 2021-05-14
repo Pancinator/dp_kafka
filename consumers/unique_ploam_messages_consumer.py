@@ -3,7 +3,7 @@ Example of kafka consumer subscribing topic UniquePloamMessages
 """
 
 from kafka import KafkaConsumer
-from kafka_services import config
+from dp_kafka.src.kafka_services import config
 from json import loads
 import basic_consumer
 

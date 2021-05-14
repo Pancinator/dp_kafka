@@ -11,7 +11,7 @@ import ast
 import threading
 from kafka import KafkaAdminClient
 from kafka.admin import NewPartitions
-from kafka_services import config
+from dp_kafka.src.kafka_services import config
 
 
 class ProduceFrames:
