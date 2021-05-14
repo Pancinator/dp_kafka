@@ -1,19 +1,12 @@
 """
-Example of kafka consumer subscribing topic ConnectedOnus -> will be used in web app backend
+Example of kafka consumer subscribing topic ConnectedOnus
 """
-
 
 from kafka import KafkaConsumer
 from dp_kafka.src.kafka_services import config
 from json import loads
+import basic_consumer
 
-consumer = KafkaConsumer('ConnectedOnus',
-                         bootstrap_servers=[config.KAFKA_SERVER],
-                         auto_offset_reset='earliest',
-                         enable_auto_commit=True,
-                         group_id='my-group',
-                         value_deserializer=lambda data: loads(data.decode('utf-8')),
-                         api_version=(0, 10, 1))
-
-for message in consumer:
-    print(message.value)
+if __name__ == "__main__":
+    frame_prodcuer = basic_consumer.BasicConsumer(config.CONNECTED_ONUS)
+    frame_prodcuer.print_messages()

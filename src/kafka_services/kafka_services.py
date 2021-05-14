@@ -19,7 +19,7 @@ def initialize_producer():
 
 
 def initialize_consumer():
-    consumer = KafkaConsumer('GPONFrames',
+    consumer = KafkaConsumer(
                              bootstrap_servers=[config.KAFKA_SERVER],
                              auto_offset_reset='earliest',
                              enable_auto_commit=True,

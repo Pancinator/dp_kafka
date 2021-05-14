@@ -2,6 +2,7 @@
 This is the base consumer which consumes raw data from GPONFrames topic.
 Messages in this consumer are then filtered and manipulated by filter instances
 """
+from kafka import TopicPartition
 
 from dp_kafka.src.filters.filter_connected_onus import FilterConnectedOnus
 from dp_kafka.src.filters.filter_unique_ploam_messages import FilterUniquePloamMessages
@@ -34,8 +35,9 @@ class ProcessFrames:
         self.producer = initialize_producer()
 
     def process_thread_1(self):
-        print('creating consumer 1')
+        print('CREATING CONSUMER 1')
         self.consumer = initialize_consumer()
+        self.consumer.assign([TopicPartition('GPONFrames', 0)])
         for message in self.consumer:
             # Filter messages in consumer
             self.connected_onus_filter.filter_connected_onus(message.value, self.producer)
@@ -44,8 +46,9 @@ class ProcessFrames:
             self.unique_ploam_messages_filter.filter_unique_ploam_messages(message.value, self.producer)
 
     def process_thread_2(self):
-        print('creating consumer 2')
+        print('CREATING CONSUMER 2')
         self.consumer2 = initialize_consumer()
+        self.consumer2.assign([TopicPartition('GPONFrames', 1)])
         for message in self.consumer2:
             # Filter messages in consumer
             self.connected_onus_filter.filter_connected_onus(message.value, self.producer)

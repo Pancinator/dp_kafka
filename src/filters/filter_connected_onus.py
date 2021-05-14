@@ -51,17 +51,12 @@ class FilterConnectedOnus:
 
             # Update helper list
             self.unique_connected_onus_ids.append(message_onu_id)
-
             message: ConnectedOnusMessageFormat = ConnectedOnusMessageFormat(message_onu_id)
             data: dict = message.__dict__
-
             self.buffer['active'].append(data)
 
             # Update ConnectedOnus topic with buffered data
-            print('sending: ' + str(datetime.now()))
             producer.send('ConnectedOnus', value=self.buffer)
-            print('sended: ' + str(datetime.now()))
-            return print('sended: CONNECTED ONUS: ', self.buffer)
 
         elif message_onu_id in self.unique_connected_onus_ids and message_ploam_message_id == PLOAM_DEACTIVATE_MESSAGE:
             # remove ONU from buffer and push updated list to Kafka
@@ -70,15 +65,12 @@ class FilterConnectedOnus:
 
             message: ConnectedOnusMessageFormat = ConnectedOnusMessageFormat(message_onu_id)
             data: dict = message.format_message()
-
             self.buffer['deactivated'].append(data)
 
             # update helper list
             self.unique_deactivated_onus_ids.append(message_onu_id)
-
             producer.send('ConnectedOnus', value=self.buffer)
-            producer.send('ConnectedOnusDeactivated', value=json.dumps(self.unique_deactivated_onus_ids))
-            return print('ONU WITH ID WAS REMOVED: ', message_onu_id, 'BUFFER STATUS: ', self.buffer)
+
 
 
 

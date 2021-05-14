@@ -18,6 +18,6 @@ class FilterMessagesByTypeFormat(MessagesFormat):
         self.data = data
         self.ploam_message_name = self.get_ploam_message_name()
         self.ploam_message_id_bin = self.get_ploam_message_name()
-
+        print('creating message for ploam id: ', ploam_message_id)
     def get_ploam_message_name(self):
         return get_message_type_by_id(self.ploam_message_id)
