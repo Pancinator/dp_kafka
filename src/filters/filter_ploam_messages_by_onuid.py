@@ -1,5 +1,5 @@
-from dp_kafka.src.kafka_services.kafka_services import initialize_producer
-from dp_kafka.src.messages.filter_ploam_messages_by_onu_id_format import FilterMessagesByOnuIdFormat
+from kafka_services.kafka_services import initialize_producer
+from messages.filter_ploam_messages_by_onu_id_format import FilterMessagesByOnuIdFormat
 from kafka import KafkaProducer
 import json
 

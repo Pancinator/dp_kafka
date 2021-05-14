@@ -4,12 +4,12 @@ Messages in this consumer are then filtered and manipulated by filter instances
 """
 from kafka import TopicPartition
 
-from dp_kafka.src.filters.filter_connected_onus import FilterConnectedOnus
-from dp_kafka.src.filters.filter_unique_ploam_messages import FilterUniquePloamMessages
-from dp_kafka.src.filters.filter_ploam_messgaes_by_type import FilterPloamMessagesByType
-from dp_kafka.src.filters.filter_ploam_messages_by_onuid import FilterPloamMessagesByOnuId
-from dp_kafka.src.kafka_services.kafka_services import initialize_consumer
-from dp_kafka.src.kafka_services.kafka_services import initialize_producer
+from filters.filter_connected_onus import FilterConnectedOnus
+from filters.filter_unique_ploam_messages import FilterUniquePloamMessages
+from filters.filter_ploam_messgaes_by_type import FilterPloamMessagesByType
+from filters.filter_ploam_messages_by_onuid import FilterPloamMessagesByOnuId
+from kafka_services.kafka_services import initialize_consumer
+from kafka_services.kafka_services import initialize_producer
 from datetime import datetime
 import glob
 import json

@@ -1,5 +1,5 @@
-from dp_kafka.src.messages.unique_ploam_message_format import UniquePloamMessagesFormat
-from dp_kafka.src.kafka_services.kafka_services import initialize_producer
+from messages.unique_ploam_message_format import UniquePloamMessagesFormat
+from kafka_services.kafka_services import initialize_producer
 from kafka import KafkaProducer
 
 

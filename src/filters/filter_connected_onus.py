@@ -9,9 +9,9 @@ Output:
     ConnectedOnusActive and ConnectedOnusDeactivated topic.
 """
 
-from dp_kafka.src.kafka_services.kafka_services import initialize_producer
-from dp_kafka.src.messages.connected_onus_message_format import ConnectedOnusMessageFormat
-from dp_kafka.src.kafka_services.config import PLOAM_DEACTIVATE_MESSAGE
+from kafka_services.kafka_services import initialize_producer
+from messages.connected_onus_message_format import ConnectedOnusMessageFormat
+from kafka_services.config import PLOAM_DEACTIVATE_MESSAGE
 import json
 from datetime import datetime
 

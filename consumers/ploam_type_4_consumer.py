@@ -2,7 +2,7 @@
 Example of kafka consumer subscribing topic PloamType4
 """
 
-from dp_kafka.src.kafka_services import config
+from kafka_services import config
 import basic_consumer
 
 if __name__ == "__main__":
